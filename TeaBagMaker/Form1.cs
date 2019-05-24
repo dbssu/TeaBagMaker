@@ -15,8 +15,9 @@ namespace TeaBagMaker
     {
         //콤보박스 데이터 설정
         string[] TeaList = new string[] { "홍차", "녹차", "루이보스차", "국화차" };
-        int CountOrgNum = 0; //초기 카운터
+        int[] List = new int[] { 10 * 60 * 2, 10 * 60 * 3, 10 * 60 * 5, 10 * 60 * 2 };
         string Choice = "";
+        int CountNum = 0;
 
         public Form1()
         {
@@ -32,14 +33,28 @@ namespace TeaBagMaker
             
         }
 
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            if (CountNum < 1)
+            {
+                this.TeaTimer.Enabled = false;
+                MessageBox.Show("티백을 건지세요!", "알림",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                CountNum--;
+                if (CountNum / 10 / 60 == 0)
+                    this.TCountDown.Text = Convert.ToString((CountNum / 10) % 60 + "초" + " 남았습니다!");
+                else
+                    this.TCountDown.Text = Convert.ToString(CountNum / 10 / 60 + "분 " + (CountNum / 10) % 60 + "초" + " 남았습니다!");
+            }
+
+        }
+
         private void MakeTea_Click(object sender, EventArgs e)
         {
-            Choice = TeaList.ToString();
-
-            if (Choice == "홍차")
-            {
-                MessageBox.Show("홍차");
-            }
+          
         }
     }
 }
